@@ -16,22 +16,6 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class UserRepository implements UserRepositoryInterface
 {
-
-     public function login($request)
-     {
-        $user = User::where("document_cpf", $request["document_cpf"])->first();
-
-        if ($user){
-            return response()->json([
-                "access_token" => $user->createToken("auth-token")->plainTextToken
-            ],200);
-
-        }
-
-         return response()->json(["message" => "CPF não encontrado, por favor faça seu cadastro"], 401);
-
-    }
-
     public function user()
     {
         return User::select('id', 'name', 'document_cpf', 'phone', 'email', 'status')

@@ -96,8 +96,8 @@ class BackOfficeService implements BackOfficeServiceInterface
     public function consultUsers($request)
     {
         $data = $request->validated();
-        $data['document_cpf'] = preg_replace("/(\d{3})(\d{3})(\d{3})(\d{2})/", "\$1.\$2.\$3-\$4", $data['document_cpf']);
-        return $this->backOfficeRepository->consultUser($data['document_cpf']);
+        $data['phone'] = preg_replace("/([-\(\)\s])/", "", $data['phone']);
+        return $this->backOfficeRepository->consultUser($data['phone']);
     }
 
     public function notifyRaffle()

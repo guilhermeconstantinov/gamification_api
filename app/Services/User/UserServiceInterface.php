@@ -11,8 +11,6 @@ interface UserServiceInterface
      */
     public function user();
 
-    public function login($request);
-
     public function logout();
 
     public function create($request);

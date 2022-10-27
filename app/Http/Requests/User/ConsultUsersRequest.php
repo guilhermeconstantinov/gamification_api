@@ -24,7 +24,7 @@ class ConsultUsersRequest extends FormRequest
     public function rules()
     {
         return [
-            "document_cpf" => "string"
+            "phone" => "required|string"
         ];
     }
 }

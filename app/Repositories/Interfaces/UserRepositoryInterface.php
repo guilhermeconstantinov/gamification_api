@@ -8,8 +8,6 @@ interface UserRepositoryInterface
 
     public function create($request);
 
-    public function login($request);
-
     public function user();
 
     public function generateAccessCode($status, $userId);

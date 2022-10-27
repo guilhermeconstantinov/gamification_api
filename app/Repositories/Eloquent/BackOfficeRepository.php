@@ -27,11 +27,9 @@ class BackOfficeRepository implements BackOfficeRepositoryInterface
             ->get();
     }
 
-    public function consultUser($document)
+    public function consultUser($phone)
     {
-
-        $user = User::select('id', 'name', 'document_cpf', 'phone', 'email', 'status')
-            ->where('document_cpf', $document)
+        $user = User::where('phone', $phone)
             ->first();
 
         if(!$user){

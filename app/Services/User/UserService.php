@@ -21,11 +21,6 @@ class UserService implements UserServiceInterface
         $this->whatsappRepository = $whatsappRepository;
     }
 
-    public function login($request)
-    {
-        $data = $request->validated();
-        return $this->userRepository->login($data);
-    }
 
     public function create($request)
     {

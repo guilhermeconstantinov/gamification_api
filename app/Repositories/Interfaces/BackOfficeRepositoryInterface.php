@@ -6,7 +6,7 @@ interface BackOfficeRepositoryInterface
 {
     public function totalLuckyNumbers();
 
-    public function consultUser($document);
+    public function consultUser($phone);
 
     public function getNumbersByRaffleId($raffleNumber);
 
