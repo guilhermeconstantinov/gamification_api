@@ -18,7 +18,7 @@ class UserRepository implements UserRepositoryInterface
 {
     public function user()
     {
-        return User::select('id', 'name', 'document_cpf', 'phone', 'email', 'status')
+        return User::select('name', 'email', 'birthdate', 'phone', 'status')
             ->with(['accessCodes' => function($query) {
                 $query->orderBy('id');
             }, 'luckyNumber'])
