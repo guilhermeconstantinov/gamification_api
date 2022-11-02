@@ -2,7 +2,9 @@
 
 namespace App\Services\User;
 
+use App\Http\Requests\User\ValidationCodeRequest;
 use App\Jobs\SendWhatsappJob;
+use App\Models\ValidationCode;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Repositories\Interfaces\WhatsappRepositoryInterface;
 use App\StatusType;
@@ -36,7 +38,8 @@ class UserService implements UserServiceInterface
 
     public function user()
     {
-        return response()->json($this->userRepository->user());
+        $user = $this->userRepository->user();
+        return response()->json($user, 200);
     }
 
     public function logout()
@@ -57,12 +60,12 @@ class UserService implements UserServiceInterface
             return response()->json(['message' => 'Você já executou esse processo'], 400);
         }
 
-        $qrcodeLink = $this->userRepository
+        $this->userRepository
             ->generateAccessCode(StatusType::WAITING_CHECKIN, $user->id);
+
 
         $user->status = StatusType::WAITING_CHECKIN;
         $user->save();
-        SendWhatsappJob::dispatch('register', $user, $qrcodeLink);
 
         return response()->json(["message" => 'Processo de check-in foi iniciado'], 200);
     }
@@ -84,12 +87,11 @@ class UserService implements UserServiceInterface
             return response()->json(['message' => 'Você já executou esse processo'], 400);
         }
 
-        $qrcodeLink = $this->userRepository->generateAccessCode(StatusType::WAITING_SIMULATION, $user->id);
+        $this->userRepository->generateAccessCode(StatusType::WAITING_SIMULATION, $user->id);
 
         $user->status = StatusType::WAITING_SIMULATION;
         $user->save();
 
-        SendWhatsappJob::dispatch('simulation', $user, $qrcodeLink);
 
         return response()->json(["message" => 'Simulação concluída'], 200);
 
@@ -120,5 +122,72 @@ class UserService implements UserServiceInterface
 
         return response()->json(["message" => 'Número do sorteio enviado'], 200);
 
+    }
+
+    public function validationCode($request)
+    {
+        $data = $request->validated();
+        $user = $this->userRepository->show(Auth::id());
+
+        if($user->status > StatusType::VALIDATION_CODE)
+        {
+            return response()->json([
+                "message" => "Você já executou esse processo"
+            ], 400);
+        }
+
+        if(array_key_exists("phone", $data) && $data["phone"]){
+            $user->phone = $data["phone"];
+        }
+
+        $validation = ValidationCode::where('user_id', $user->id)
+            ->orderBy('created_at', 'desc')
+            ->first();
+
+        if($validation){
+            $validation->revoked = true;
+            $validation->save();
+        }
+
+        ValidationCode::create([
+            "user_id" => $user->id,
+            "code" => substr(str_shuffle("0123456789"), 0, 4),
+        ]);
+
+        $user->status = StatusType::VALIDATION_CODE;
+        $user->save();
+
+        SendWhatsappJob::dispatch('validation_code', $user, null, $user->number);
+
+        return response()->json([
+            "message" => "Código encaminhado para o seu celular"
+        ]);
+    }
+
+    public function readValidation($request)
+    {
+        $data = $request->validated();
+        $user = $this->userRepository->show(Auth::id());
+
+        $validation = ValidationCode::where("code", $data["code"])
+            ->where('user_id', $user->id)
+            ->where("revoked", false)
+            ->first();
+
+        if(!$validation)
+        {
+            return response()->json([
+                "message" => "Código não encontrado"
+            ], 400);
+        }
+
+        $validation->revoked = true;
+        $validation->save();
+
+        $this->checkin();
+
+        return response()->json([
+            "message" => "Código validado"
+        ], 200);
     }
 }

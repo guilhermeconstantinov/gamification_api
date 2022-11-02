@@ -34,6 +34,7 @@ class User extends Authenticatable
         'password',
         'created_at',
         'updated_at',
+        'email_verified_at',
         'remember_token',
     ];
 
@@ -45,5 +46,10 @@ class User extends Authenticatable
     public function luckyNumber()
     {
         return $this->hasOne(LuckyNumber::class);
+    }
+
+    public function validationCodes()
+    {
+        return $this->hasMany(ValidationCode::class);
     }
 }

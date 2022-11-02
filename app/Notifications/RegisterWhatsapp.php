@@ -43,7 +43,7 @@ class RegisterWhatsapp extends Notification implements ShouldQueue
     public function toWhatsapp($notifiable): WhatsappMessage
     {
         return (new WhatsappMessage)
-            ->type('register')
+            ->type('checkin')
             ->to($this->to)
             ->contactName($this->contactName)
             ->qrcodeLink($this->qrcodeLink);

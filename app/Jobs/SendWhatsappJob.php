@@ -50,14 +50,9 @@ class SendWhatsappJob implements ShouldQueue
      */
     public function handle()
     {
-        if($this->type == 'register'){
+        if($this->type == 'validation_code'){
             Notification::channel(WhatsappChannel::class)
                 ->send($this->user, new RegisterWhatsapp($this->user->phone, $this->user->name, $this->qrcode));
-        }
-
-        if($this->type == 'simulation'){
-            Notification::channel(WhatsappChannel::class)
-                ->send($this->user, new SimulationWhatsapp($this->user->phone, $this->user->name, $this->qrcode));
         }
 
         if($this->type == 'luckyNumber'){
@@ -69,11 +64,5 @@ class SendWhatsappJob implements ShouldQueue
             Notification::channel(WhatsappChannel::class)
                 ->send($this->user, new RaffleWhatsapp($this->user->phone, $this->user->name, $this->qrcode, $this->luckyNumber));
         }
-
-        if($this->type == 'notifyRaffle'){
-            Notification::channel(WhatsappChannel::class)
-                ->send($this->user, new NotifyRaffleWhatsapp($this->user->phone, $this->user->name));
-        }
-
     }
 }

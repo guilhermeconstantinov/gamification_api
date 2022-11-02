@@ -75,14 +75,9 @@ class WhatsappMessage {
 
         $components = null;
 
-        if($this->type === 'register') {
+        if($this->type === 'checkin') {
             $components = $this->componentsWithHeaderAndBody();
             $templateName = 'brinde_imagem_001';
-        }
-
-        if($this->type === 'simulation') {
-            $components = $this->componentsWithHeaderAndBody();
-            $templateName = 'game_simulador';
         }
 
         if($this->type === 'luckyNumber'){
@@ -93,11 +88,6 @@ class WhatsappMessage {
         if($this->type === 'raffle') {
             $components = $this->componentsWithHeaderAndBody2();
             $templateName = 'game_ganhador';
-        }
-
-        if($this->type === 'notifyRaffle'){
-            $components = null;
-            $templateName = 'game_notificacao';
         }
 
         $request = [

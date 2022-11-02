@@ -21,4 +21,8 @@ interface UserServiceInterface
 
     public function generateNumber();
 
+    public function validationCode($request);
+
+    public function readValidation($request);
+
 }

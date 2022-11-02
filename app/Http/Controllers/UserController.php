@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\User\CreateRequest;
-use App\Http\Requests\User\LoginRequest;
+use App\Http\Requests\User\ReadValidationRequest;
+use App\Http\Requests\User\ValidationCodeRequest;
 use App\Services\User\UserServiceInterface;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
@@ -30,6 +32,16 @@ class UserController extends Controller
     public function logout()
     {
         return $this->userService->logout();
+    }
+
+    public function validationCode(ValidationCodeRequest $request)
+    {
+        return $this->userService->validationCode($request);
+    }
+
+    public function readValidation(ReadValidationRequest $request)
+    {
+        return $this->userService->readValidation($request);
     }
 
     public function checkin()

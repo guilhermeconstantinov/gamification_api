@@ -99,20 +99,4 @@ class BackOfficeService implements BackOfficeServiceInterface
         $data['phone'] = preg_replace("/([-\(\)\s])/", "", $data['phone']);
         return $this->backOfficeRepository->consultUser($data['phone']);
     }
-
-    public function notifyRaffle()
-    {
-        $users = $this->backOfficeRepository->usersForRaffle();
-
-        if($users->count() == 0){
-            return response()->json(['message' => 'Nenhum usuário encontrado para notificar'], 400);
-        }
-
-        foreach ($users as $user){
-            $userForId = $this->backOfficeRepository->show($user->id);
-            SendWhatsappJob::dispatch('notifyRaffle', $userForId);
-        }
-
-        return response()->json(['message' => 'Notificação de aviso enviado com sucesso!'], 200);
-    }
 }

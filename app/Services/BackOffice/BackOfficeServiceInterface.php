@@ -16,5 +16,4 @@ interface BackOfficeServiceInterface
 
     public function qrcodeRead($request);
 
-    public function notifyRaffle();
 }

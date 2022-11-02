@@ -23,6 +23,8 @@ Route::middleware('auth:api')->group(function() {
     Route::post('/checkin', [UserController::class, 'checkin']);
     Route::post('/simulation', [UserController::class, 'simulation']);
     Route::post('/generate-number', [UserController::class, 'generateNumber']);
+    Route::post('/validation-code', [UserController::class, 'validationCode']);
+    Route::post('/read-validation-code', [UserController::class, 'readValidation']);
 });
 
 Route::post('/register', [UserController::class, 'create']);

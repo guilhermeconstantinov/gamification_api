@@ -47,9 +47,4 @@ class BackOfficeController extends Controller
     {
         return $this->backOfficeService->getNumbersByRaffleId($request);
     }
-
-    public function notifyRaffle()
-    {
-        return $this->backOfficeService->notifyRaffle();
-    }
 }
