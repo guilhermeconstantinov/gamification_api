@@ -70,9 +70,10 @@ class UserService implements UserServiceInterface
         return response()->json(["message" => 'Processo de check-in foi iniciado'], 200);
     }
 
-    public function simulation()
+    public function simulation($request)
     {
         $user = $this->userRepository->show(Auth::id());
+        $data = $request->validated();
 
         if($user->status == StatusType::WAITING_SIMULATION)
         {
@@ -90,6 +91,8 @@ class UserService implements UserServiceInterface
         $this->userRepository->generateAccessCode(StatusType::WAITING_SIMULATION, $user->id);
 
         $user->status = StatusType::WAITING_SIMULATION;
+        $user->course1 = $data['course1'];
+        $user->course2 = $data['course2'];
         $user->save();
 
 

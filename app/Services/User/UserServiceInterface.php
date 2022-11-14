@@ -17,7 +17,7 @@ interface UserServiceInterface
 
     public function checkin();
 
-    public function simulation();
+    public function simulation($request);
 
     public function generateNumber();
 

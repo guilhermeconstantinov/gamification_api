@@ -29,6 +29,10 @@ class CreateRequest extends FormRequest
             "phone" => "required|string|unique:users,phone",
             "password" => "required|string",
             "birthdate" => "required|date",
+            "gender" => "required|in:M,F,O",
+            "high_school" => "required|boolean",
+            "school_year" => "integer|nullable",
+            "undergraduate_program" => "required|boolean"
         ];
     }
 }

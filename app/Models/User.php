@@ -22,6 +22,12 @@ class User extends Authenticatable
         'birthdate',
         'phone',
         'status',
+        'gender',
+        'high_school',
+        'school_year',
+        'undergraduate_program',
+        'course1',
+        'course2',
         'password'
     ];
 

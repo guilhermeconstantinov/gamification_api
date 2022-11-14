@@ -20,6 +20,12 @@ class CreateUsersTable extends Migration
             $table->date('birthdate');
             $table->string('phone');
             $table->integer('status')->default(0);
+            $table->char('gender');
+            $table->boolean('high_school');
+            $table->integer('school_year')->nullable();
+            $table->boolean('undergraduate_program');
+            $table->string('course1')->nullable();
+            $table->string('course2')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

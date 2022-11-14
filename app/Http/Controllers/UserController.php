@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\User\CreateRequest;
 use App\Http\Requests\User\ReadValidationRequest;
+use App\Http\Requests\User\UpdateSimulationRequest;
 use App\Http\Requests\User\ValidationCodeRequest;
 use App\Services\User\UserServiceInterface;
 use Illuminate\Support\Facades\Request;
@@ -49,9 +50,9 @@ class UserController extends Controller
         return $this->userService->checkin();
     }
 
-    public function simulation()
+    public function simulation(UpdateSimulationRequest $request)
     {
-        return $this->userService->simulation();
+        return $this->userService->simulation($request);
     }
 
     public function generateNumber()

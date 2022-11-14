@@ -26,9 +26,6 @@ class UserRepository implements UserRepositoryInterface
 
     public function create($request)
     {
-        if(!$request['email'] || $request['email'] == ''){
-            $request['email'] = 'Email não informado';
-        }
         $request['password'] =  Hash::make($request['password']);
         $user = User::create($request);
 
