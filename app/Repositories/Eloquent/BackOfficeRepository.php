@@ -33,7 +33,7 @@ class BackOfficeRepository implements BackOfficeRepositoryInterface
             ->first();
 
         if(!$user){
-            return response()->json(['message' => 'Nenhum usuário encontrado para esse CPF'], 404);
+            return response()->json(['message' => 'Nenhum usuário encontrado com esse celular'], 404);
         }
 
         $user = $user->toArray();

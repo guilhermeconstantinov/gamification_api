@@ -27,6 +27,8 @@ class UserRepository implements UserRepositoryInterface
     public function create($request)
     {
         $request['password'] =  Hash::make($request['password']);
+        $request['phone'] = preg_replace("/([-\(\)\s])/", "", $request['phone']);
+
         $user = User::create($request);
 
         if($user){
