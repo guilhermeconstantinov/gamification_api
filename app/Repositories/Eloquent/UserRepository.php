@@ -72,8 +72,8 @@ class UserRepository implements UserRepositoryInterface
             'code' => Str::uuid()
         ]);
 
-        $image = $this->qrcodeGenerate($accessCode->code);
-        return $this->uploadImage($accessCode->code, $image);
+        //$image = $this->qrcodeGenerate($accessCode->code);
+        //return $this->uploadImage($accessCode->code, $image);
     }
 
     public function generateLuckyNumber($userId)
@@ -132,7 +132,7 @@ class UserRepository implements UserRepositoryInterface
 
     public function qrcodeGenerate($accessCode)
     {
-        return QrCode::size(928)->margin(2)->format('png')->generate($accessCode);
+        //return QrCode::size(928)->margin(2)->format('png')->generate($accessCode);
     }
 
     public function uploadImage($fileName, $image)
