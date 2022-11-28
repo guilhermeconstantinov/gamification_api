@@ -10,7 +10,7 @@ $ docker compose up -d --build
 # Acessar o workspace no docker
 $ docker compose exec app sh
 
-# Rodar o comando o passport
+# Rodar o comando do passport
 $ php artisan passport:install
 $ npm run start
 
