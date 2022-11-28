@@ -1,5 +1,7 @@
 # SISTEMA DE GERAÇÃO DE LEADS PARA FEIRA DAS PROFISSÕES ATRAVÉS DA GAMIFICAÇÃO 
 
+Requisitos
+- Ter o docker instalado na máquina
 
 ## Build Setup
 
