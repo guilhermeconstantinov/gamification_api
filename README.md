@@ -12,7 +12,6 @@ $ docker compose exec app sh
 
 # Rodar o comando do passport
 $ php artisan passport:install
-$ npm run start
 
 # Rodar as migrations
 $ php artisan migrate
