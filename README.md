@@ -10,6 +10,12 @@ $ docker compose up -d --build
 # Acessar o workspace no docker
 $ docker compose exec app sh
 
+# Instalar as dependências do laravel 
+$ composer install
+
+# Gerar a chave de criptografia do laravel
+# php artisan key:generate
+
 # Rodar o comando do passport
 $ php artisan passport:install
 
