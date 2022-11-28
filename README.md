@@ -14,7 +14,7 @@ $ docker compose exec app sh
 $ composer install
 
 # Gerar a chave de criptografia do laravel
-# php artisan key:generate
+$ php artisan key:generate
 
 # Rodar o comando do passport
 $ php artisan passport:install
